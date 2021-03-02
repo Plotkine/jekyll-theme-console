@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="snake.css">
-    <meta charset="utf-8" />
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; media-src 'self'; object-src 'self'; child-src 'self'; form-action 'none'; base-uri 'self'" />
+<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
+<meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
 
-  </head>
+  {%- include head.html -%}
+
   <body>
+    <div class="container">
+
+      {%- include snake.html -%}
+
+    <main>
     <script src="snake.js"></script>
+    </main>
+
+    {%- include footer.html -%}
+
+    </div>
   </body>
-</html>
+</html>    
