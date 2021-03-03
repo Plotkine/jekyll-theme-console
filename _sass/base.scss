@@ -21,7 +21,7 @@ h3 { font-size: 18.72px;  margin: 0px;  margin-top: 22px;  font-weight: bold;  c
 p, ul, ol { margin: 0px;  color: var(--text-color); }
 a { text-decoration: underline;  color: var(--link-color); }
 a:hover { color: var(--background-color); background-color: var(--base-color); }
-@media only screen and (max-device-width: 500px) { * { font-size: $mobile-font-size !important; } }
+@media only screen and (max-device-width: 800px) { * { font-size: $mobile-font-size !important; } }
 
 /**
  * old Global
