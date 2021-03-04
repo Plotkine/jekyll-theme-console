@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self' https://www.hackthebox.eu/; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; media-src 'self'; object-src 'self'; child-src 'self'; form-action 'none'; base-uri 'self'" />
+<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
+<meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+
+  {%- include head.html -%}
+
+  <body>
+    <div class="container">
+
+      {%- include header.html -%}
+
+<!-- tree output -->
+<p>
+        <a href="/programming">/programming</a><br>
+        ├── <a href="/programming/js-projects/">js-projects</a><br>
+        │   ├── <a href="/programming/js-projects/animations/">animations</a><br>
+        │   │   ├── <a href="/programming/js-projects/animations/birds">birds</a><br>
+        │   │   ├── <a href="/programming/js-projects/animations/game-of-life">game-of-life./a><br>
+        │   │   └── <a href="/programming/js-projects/animations/gravity-balls">gravity-balls</a><br>
+        │   ├── <a href="/programming/js-projects/animations">animations./a><br>
+        │   ├── <a href="/programming/js-projects/games/">games</a><br>
+        │   │   ├── <a href="/programming/js-projects/games/freddie">freddie</a><br>
+        │   │   └── <a href="/programming/js-projects/games/snake">snake</a><br>
+        │   └── <a href="/programming/js-projects/games">games</a><br>
+        ├── <a href="/programming/js-projects.md">js-projects</a><br>
+        ├── <a href="/programming/lol.html">lol.html</a><br>
+        └── <a href="/programming/py-projects/">py-projects</a><br>
+        &nbsp;&nbsp;&nbsp; └── <a href="/programming/py-projects/image-to-ascii">image-to-ascii</a><br>
+        <br><br>
+</p>
+<!-- end tree output -->
+
+    <main>
+      {{ content }}
+    </main>
+
+    {%- include footer.html -%}
+
+    </div>
+  </body>
+</html>
