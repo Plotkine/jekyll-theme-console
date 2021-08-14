@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; media-src 'self'; object-src 'self'; child-src 'self' https://editor.p5js.org/Plotkine/present/kmFef9ExW https://editor.p5js.org/Plotkine/present/wt0UfN_ce https://editor.p5js.org/Plotkine/present/NYcHr4h5V https://editor.p5js.org/Plotkine/present/I-eeyxqFo https://editor.p5js.org/Plotkine/present/_6t0LDFnp https://editor.p5js.org/Plotkine/present/I0OtMYTba; form-action 'none'; base-uri 'self'" />
+<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
+<meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+
+  {%- include head.html -%}
+
+  <body>
+    <div class="container">
+
+      {%- include header.html -%}
+
+      <!-- tree output -->
+<p>/programming
+ ├── bash
+ │   └── <a href="/programming/bash/scan-script">scan_script</a>
+ ├── javascript
+ │   ├── animations
+ │   │   ├── <a href="/programming/javascript/animations/birds">birds</a>
+ │   │   ├── <a href="/programming/javascript/animations/game-of-life">game_of_life</a>
+ │   │   └── <a href="/programming/javascript/animations/gravity-balls">gravity_balls</a>
+ │   └── games
+ │       ├── <a href="/programming/javascript/games/freddie">freddie_game</a>
+ │       └── <a href="/programming/javascript/games/snake">snake</a>
+ └── python
+     ├── <a href="/programming/python/image-to-ascii">image_to_ascii</a>
+     └── <a href="/programming/python/learn-russian">learn_russian</a>
+<!-- <b>─────────────────────────────────────────</b> --></p>
+      <!-- end tree output -->
+
+    <main>
+      {{ content }}
+    </main>
+    </div>
+  </body>
+</html>

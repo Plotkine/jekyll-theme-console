@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; media-src 'self'; object-src 'self'; child-src 'self'; form-action 'none'; base-uri 'self'" />
+<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
+<meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+
+  {%- include head.html -%}
+
+  <body>
+    <div class="container">
+
+      {%- include header.html -%}
+
+      <!-- tree output -->
+<p>/contact
+├── <a href="https://github.com/plotkine" target="_blank" rel="noopener noreferrer">github</a>
+└── <a href="https://hackthebox.eu/profile/76086" target="_blank" rel="noopener noreferrer">hackthebox</a></p>
+      <!-- end tree output -->
+
+    <main>
+      {{ content }}
+    </main>
+    </div>
+  </body>
+</html>
