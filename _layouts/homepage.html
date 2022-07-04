@@ -127,6 +127,12 @@ function drawAliveCell(i,j) {
 
     <main>
       {{ content }}
+      <script>
+      fps=30; // frames per second
+      squaresDivision=95; // number of squares per row/column
+      aliveCells = createInitialPattern();
+      setInterval(draw, 1000/fps);
+      </script>
     </main>
 
     <!--  {%- include footer.html -%} -->
@@ -134,13 +140,6 @@ function drawAliveCell(i,j) {
     </div>
 
 <div id="background"></div>
-
-<script>
-fps=30; // frames per second
-squaresDivision=95; // number of squares per row/column
-aliveCells = createInitialPattern();
-setInterval(draw, 1000/fps);
-</script>
 
   </body>
 </html>
