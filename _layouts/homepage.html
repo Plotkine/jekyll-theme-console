@@ -7,8 +7,11 @@
 
 <style>
 #background {
+<!--
   width: 475px;
   height: 475px;
+-->
+  width: 100%;
   position: relative;
   background: #000000;
   border-style: solid;
@@ -24,8 +27,8 @@
 
 <script>
 function isIn(i,j,aList) { // aList is a list of 2-lists
-  for (let k = 0; k < aList.length; k++) {
-    if ((aList[k][0] === i) && (aList[k][1] === j)) {
+  for (const coordinates of aList) {
+    if ((coordinates[0] === i) && (coordinates[1] === j)) {
       return true;
     }
   }
@@ -35,28 +38,30 @@ function isIn(i,j,aList) { // aList is a list of 2-lists
 function evolve(i,j,aList) { // game of life rules for the cell i,j
   // calculating number of alive neighbors
   aliveNeighbors=0;
-  if (isIn((((i-1) % squaresDivision) + squaresDivision) % squaresDivision,(((j-1) % squaresDivision) + squaresDivision) % squaresDivision,aList)) {
+  [left, right, bottom, above] = getNeighbors(i,j);
+  
+  if (isIn(left,above,aList)) {
     aliveNeighbors+=1;
   }
-  if (isIn((((i-1) % squaresDivision) + squaresDivision) % squaresDivision,j % squaresDivision,aList)) {
+  if (isIn(left,j % squaresDivision,aList)) {
     aliveNeighbors+=1;
   }
-  if (isIn((((i-1) % squaresDivision) + squaresDivision) % squaresDivision,(j+1) % squaresDivision,aList)) {
+  if (isIn(left,bottom,aList)) {
     aliveNeighbors+=1;
   }
-  if (isIn(i % squaresDivision,(((j-1) % squaresDivision) + squaresDivision) % squaresDivision,aList)) {
+  if (isIn(i % squaresDivision,above,aList)) {
     aliveNeighbors+=1;
   }
-  if (isIn(i % squaresDivision,(j+1) % squaresDivision,aList)) {
+  if (isIn(i % squaresDivision,bottom,aList)) {
     aliveNeighbors+=1;
   }
-  if (isIn((i+1) % squaresDivision,(((j-1) % squaresDivision) + squaresDivision) % squaresDivision,aList)) {
+  if (isIn(right,above,aList)) {
     aliveNeighbors+=1;
   }
-  if (isIn((i+1) % squaresDivision,j % squaresDivision,aList)) {
+  if (isIn(right,j % squaresDivision,aList)) {
     aliveNeighbors+=1;
   }
-  if (isIn((i+1) % squaresDivision,(j+1) % squaresDivision,aList)) {
+  if (isIn(right,bottom,aList)) {
     aliveNeighbors+=1;
   }
   if (isIn(i,j,aList)) { // if the cell (i,j) was alive
@@ -77,6 +82,14 @@ function evolve(i,j,aList) { // game of life rules for the cell i,j
   }
 }
 
+function getNeighbors(i,j) {
+  left = (((i-1) % squaresDivision) + squaresDivision) % squaresDivision;
+  right = (i+1) % squaresDivision;
+  bottom = (j+1) % squaresDivision;
+  above = (((j-1) % squaresDivision) + squaresDivision) % squaresDivision;
+  return [left, right, bottom, above]
+}
+
 function createInitialPattern() {
   return [[5,5],[6,5],[7,5],   [10,10],[10,11],[10,12],    [15,15],[16,16],[17,16],[17,15],[17,14]];
 }
@@ -90,21 +103,37 @@ function draw() {
   }
 
   //we evolve the cells
+  cellsToConsider = []; // optimization: we only check for neighbors of currently alive cells
+  for ([i,j] of aliveCells) {
+      cellsToConsider.push([i,j]);
+      [left, right, bottom, above] = getNeighbors(i, j);
+      cellsToConsider.push([left, j]);
+      cellsToConsider.push([left, above]);
+      cellsToConsider.push([i, above]);
+      cellsToConsider.push([right, above]);
+      cellsToConsider.push([right, j]);
+      cellsToConsider.push([right, bottom]);
+      cellsToConsider.push([i, bottom]);
+      cellsToConsider.push([left, bottom]);
+  }
+  cellsToConsider = cellsToConsider.filter((t={},a=>!(t[a]=a in t))); /* removing duplicates
+  see https://stackoverflow.com/questions/44014799/javascript-how-to-remove-duplicate-arrays-inside-array-of-arrays#:~:text=Magic */
+
   aliveCellsCopy=Array.from(aliveCells);
-  for (let i = 0; i <= squaresDivision; i++) {
-    for (let j = 0; j <= squaresDivision; j++) {
-      willEvolve=evolve(i,j,aliveCellsCopy);
-      if (willEvolve === "becomesDead") {
-        for(var k = 0; k < aliveCells.length; k++) { //we remove the cell from the list
-          if ((aliveCells[k][0] === i) && (aliveCells[k][1] === j)) {
-            aliveCells.splice(k,1);
-            break; //we know it can be there only once
-          }
+  for ([i,j] of cellsToConsider) {
+  /*for (let i = 0; i < squaresDivision; i++) {
+    for (let j = 0; j < squaresDivision; j++) {*/
+    willEvolve=evolve(i,j,aliveCellsCopy);
+    if (willEvolve === "becomesDead") {
+      for(var k = 0; k < aliveCells.length; k++) { //we remove the cell from the list
+        if ((aliveCells[k][0] === i) && (aliveCells[k][1] === j)) {
+          aliveCells.splice(k,1);
+          break; //we know it can be there only once
         }
       }
-      else if (willEvolve === "becomesAlive") {
-        aliveCells.push([i,j]);
-      }
+    }
+    else if (willEvolve === "becomesAlive") {
+      aliveCells.push([i,j]);
     }
   }
 }
